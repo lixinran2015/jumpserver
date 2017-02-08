@@ -374,8 +374,10 @@ def asset_edit_batch(request):
             if asset:
                 if env:
                     if asset.env != env:
+                        old_name = asset.get_env_display()
                         asset.env = env
-                        alert_list.append([u'运行环境', asset.env, env])
+                        new_name = get_tuple_name(ASSET_ENV, int(env)) if env else u''
+                        alert_list.append([u'运行环境', old_name, new_name])
                 if idc_id:
                     idc = get_object(IDC, id=idc_id)
                     name_old = asset.idc.name if asset.idc else u''
